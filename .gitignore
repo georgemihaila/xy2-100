@@ -30,3 +30,8 @@
 *.exe
 *.out
 *.app
+.vscode/c_cpp_properties.json
+.vs/slnx.sqlite
+.vs/VSWorkspaceState.json
+.vs/xy2-100/v17/.wsuo
+.vs/xy2-100/v17/DocumentLayout.json
