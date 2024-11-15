@@ -1,33 +1,33 @@
 #pragma once
 #include "DifferentialWirePair.h"
 
-#define K 1000
-#define M K *K
-#define G M *K
-
 class XY2_100 {
 private:
   DifferentialWirePair *_clock;
   DifferentialWirePair *_syn;
   DifferentialWirePair *_x;
   DifferentialWirePair *_y;
-  unsigned long _max_speed = 2 * M; // 2 MHz (per protocol specification)
-  unsigned long _max_tick_length_ns = 1 * G / (_max_speed * K);
+  unsigned long _max_speed = 2 * 1000000; // 2 MHz (per protocol specification)
+  unsigned long _max_tick_length_ns = 1000000000 / (_max_speed * 1000);
   int _x_pos = 0;
   int _y_pos = 0;
+  unsigned long _setting_time_us = 1000000 / (20 * 1000); // 20k pps max
 
-  void _write(DifferentialWirePair *pair, int value);
+  /// @brief Sets the x and y position of the galvo simultaneously; doing this
+  /// sequentially results in the other axis going to 0
+  /// @param x
+  /// @param y
+  void _write(int x, int y);
 
 public:
   XY2_100(int clockPinP, int clockPinM, int synPinP, int synPinM, int xPinP,
           int xPinM, int yPinP, int yPinM);
 
   void tick(); // we do it synchronously (for now)
-  void setX(int x);
-  void setY(int y);
   void setXY(int x, int y);
   void tickingDelay(unsigned long us);
-  void linearMove(DifferentialWirePair *pair, int start, int end,
-                  unsigned long us);
+  /// @brief Depending on the capabilities of the device, wait for the mirror(s)
+  /// to (allegedly) reach posiiton
+  void waitSettingTime();
   void rect(int x, int y, int w, int h);
 };
