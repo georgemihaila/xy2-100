@@ -7,7 +7,7 @@ XY2_100::XY2_100(int clockPinP, int clockPinM, int synPinP, int synPinM,
   _syn = new DifferentialWirePair(synPinP, synPinM);
   _x = new DifferentialWirePair(xPinP, xPinM);
   _y = new DifferentialWirePair(yPinP, yPinM);
-  _setting_time_us *= _setting_multiplier;
+  _setting_time_us *= _setting_time_multiplier;
 }
 
 void XY2_100::tick() {
@@ -70,9 +70,6 @@ void XY2_100::_write(int x, int y) {
   _syn->set(0);
 }
 
-/// @brief Sets the x and y position of the galvo *sequentially*
-/// @param x
-/// @param y
 void XY2_100::setXY(int x, int y) {
   _write(x, y);
   _x_pos = x;
@@ -95,10 +92,14 @@ void XY2_100::rect(int x, int y, int w, int h) {
   }
 }
 
-void XY2_100::circle(int x, int y, int r) { circle(x, y, r, 720); }
-
-void XY2_100::circle(int x, int y, int r, int n) {
+void XY2_100::circleCW(int x, int y, int r, int n = 720) {
   for (int i = 0; i < n; i++) {
+    setXY(x + r * cos(2 * PI * i / n), y + r * sin(2 * PI * i / n));
+  }
+}
+
+void XY2_100::circleCCW(int x, int y, int r, int n = 720) {
+  for (int i = n; i >= 0; i--) {
     setXY(x + r * cos(2 * PI * i / n), y + r * sin(2 * PI * i / n));
   }
 }
