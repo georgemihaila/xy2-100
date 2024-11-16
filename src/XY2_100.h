@@ -11,6 +11,7 @@ private:
   unsigned long _max_tick_length_ns = 1000000000 / (_max_speed * 1000);
   int _x_pos = 0;
   int _y_pos = 0;
+  unsigned int _setting_multiplier = 1;
   unsigned long _setting_time_us = 1000000 / (20 * 1000); // 20k pps max
 
   /// @brief Sets the x and y position of the galvo simultaneously; doing this
@@ -30,4 +31,9 @@ public:
   /// to (allegedly) reach posiiton
   void waitSettingTime();
   void rect(int x, int y, int w, int h);
+  /// @brief Draws a circle with center at (x, y) and radius r
+  void circle(int x, int y, int r);
+
+  /// @brief Draws a circle with center at (x, y) and radius r, with n points
+  void circle(int x, int y, int r, int n);
 };

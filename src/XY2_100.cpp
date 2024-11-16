@@ -7,6 +7,7 @@ XY2_100::XY2_100(int clockPinP, int clockPinM, int synPinP, int synPinM,
   _syn = new DifferentialWirePair(synPinP, synPinM);
   _x = new DifferentialWirePair(xPinP, xPinM);
   _y = new DifferentialWirePair(yPinP, yPinM);
+  _setting_time_us *= _setting_multiplier;
 }
 
 void XY2_100::tick() {
@@ -76,6 +77,7 @@ void XY2_100::setXY(int x, int y) {
   _write(x, y);
   _x_pos = x;
   _y_pos = y;
+  waitSettingTime();
 }
 
 void XY2_100::rect(int x, int y, int w, int h) {
@@ -90,5 +92,13 @@ void XY2_100::rect(int x, int y, int w, int h) {
   }
   for (int i = 0; i < h; i++) {
     setXY(x, y + h - i);
+  }
+}
+
+void XY2_100::circle(int x, int y, int r) { circle(x, y, r, 720); }
+
+void XY2_100::circle(int x, int y, int r, int n) {
+  for (int i = 0; i < n; i++) {
+    setXY(x + r * cos(2 * PI * i / n), y + r * sin(2 * PI * i / n));
   }
 }

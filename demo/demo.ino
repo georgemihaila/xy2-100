@@ -10,8 +10,7 @@
 #define default_y 10, 9    // Green + white
 #define default_pins default_clock, default_syn, default_x, default_y
 
-#define laser_pin 10 // D4
-uint16_t pwm_max_unsafe = 1023;
+#define laser_pin 10
 
 XY2_100 *galvo;
 
@@ -110,10 +109,8 @@ void loop2() {
 }
 
 void loop() {
-  galvo->tickingDelay(500000);
-  int step_size = 10;
-  for (int i = 10000; i > 0; i -= step_size) {
-    galvo->setXY(i, i);
-    galvo->tickingDelay(step_size * 1000);
+  for (int i = 300; i < 1000; i += 100) {
+    galvo->circle(1000, 1000, i, 360 * 4);
+    galvo->tickingDelay(500000);
   }
 }
