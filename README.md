@@ -1,4 +1,4 @@
-# An Arduino implementation for the XY2-100 laser scanner protocol
+# An Arduino implementation of the XY2-100 laser scanner protocol
 
 ### Protocol overview
 
