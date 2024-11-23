@@ -58,4 +58,10 @@ public:
   /// @brief Draws a circle (counter-clockwise) with center at (x, y) and radius
   /// r, with n points
   void circleCCW(int x, int y, int r, int n);
+
+  /// @brief Gets the current position of the X axis mirror
+  int getX();
+
+  /// @brief Gets the current position of the Y axis mirror
+  int getY();
 };

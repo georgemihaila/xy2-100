@@ -103,3 +103,7 @@ void XY2_100::circleCCW(int x, int y, int r, int n = 720) {
     setXY(x + r * cos(2 * PI * i / n), y + r * sin(2 * PI * i / n));
   }
 }
+
+int XY2_100::getX() { return _x_pos; }
+
+int XY2_100::getY() { return _y_pos; }
